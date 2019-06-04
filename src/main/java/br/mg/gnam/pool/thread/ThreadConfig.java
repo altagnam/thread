@@ -8,12 +8,17 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 public class ThreadConfig {
 	
-    @Bean(name = "threadTest")
+    @Bean
     public TaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         int processors = Runtime.getRuntime().availableProcessors();
         System.out.println("###### processors: " + processors);
-        executor.setCorePoolSize(processors * 10);
+       
+        
+        executor.setCorePoolSize(processors / 3);
+        executor.setMaxPoolSize(processors);
+        
+        executor.setQueueCapacity(20);
         executor.setThreadNamePrefix("active_mq");
         executor.initialize();
         return executor;

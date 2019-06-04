@@ -20,14 +20,16 @@ public class AsynchronousService {
 	@Autowired
 	private ImageService imageService;
 	
+	private static int contador = 1;
 	
-	@Async("threadTest")
+	
+	@Async
 	public void processMessage (String json) {
-		System.out.println("-------> start thread: " + Thread.currentThread().getId() + ": " + json + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:sss").format(new Date()));
+		System.out.println("-------> start thread: " + Thread.currentThread().getName() + " " + Thread.currentThread().getId() + ": " + json + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:sss").format(new Date()));
 		printNameService.printName(json);
 		imageService.saveImage(json);
-		System.out.println("------->   end thread: "  + Thread.currentThread().getId() + ": " + json + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:sss").format(new Date()));
-		
+		System.out.println("------->   end thread: "  +Thread.currentThread().getName() + " " +  Thread.currentThread().getId() + ": " + json + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:sss").format(new Date()));
+		System.out.println(">>>>>>>>>>>>> ASSINCRONO: " + contador++);
 
 	}
 

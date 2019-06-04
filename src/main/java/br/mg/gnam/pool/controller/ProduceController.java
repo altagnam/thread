@@ -1,5 +1,7 @@
 package br.mg.gnam.pool.controller;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,16 @@ public class ProduceController {
 	private JmsTemplate jmsTemplate;
 
 	@GetMapping("/message/{quantidade}")
-	public void sendMessage (@PathVariable  Integer quantidade) {
+	public void sendMessage (@PathVariable  Integer quantidade) throws InterruptedException {
+		
+//		for (int i = 0; i < quantidade / 5; i++) {
+//			jmsTemplate.convertAndSend("message", getMessage());
+//		}
+		
+
+		
 		for (int i = 0; i < quantidade; i++) {
+			//Thread.sleep(new Random(100).nextInt(1000));
 			jmsTemplate.convertAndSend("message", getMessage());
 		}
 		
